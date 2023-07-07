@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/99e39243-ce10-4884-8b1e-ffa09447a6c8/deploy-status)](https://app.netlify.com/sites/sorrento-room/deploys)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
