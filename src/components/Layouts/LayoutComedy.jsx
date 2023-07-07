@@ -31,23 +31,35 @@ const LayoutComedy = (props) => {
 	const handleSaveChanges = (modalData) => {
 		const copy = [...dataState];
 		copy.forEach((element) => {
-			if (
-				element.tableNo === modalData.tableNo &&
-				element.diet.toString() !== "no"
-			) {
-				element.diet = modalData.diet;
+			if (element.tableNo === modalData.tableNo) {
+				if (modalData.diet === "") {
+					element.diet = "";
+				} else {
+					element.diet = modalData.diet;
+				}
 			}
 		});
 		savedLayout.tableData = copy;
 		setDataState(copy);
+		console.log(dataState);
+		setShowModal(false);
 	};
 
 	const handleDeleteTable = (modalData) => {
-		savedLayout?.tableData.forEach((element) => {});
+		if (window.confirm(`Table Number ${modalData.tableNo} will be deleted`)) {
+			const copy = [...dataState];
+			console.log(modalData.tableNo);
+			const filtered = copy.filter(
+				(element) => element.tableNo !== modalData.tableNo,
+			);
+			savedLayout.tableData = filtered;
+			setDataState(filtered);
+			setShowModal(false);
+		}
 	};
 	return (
 		<>
-			{/* ADDING TABLES MODAL */}
+			{/* ADDING TABLES MODAL
 			<div className="h-96 w-1/4 absolute bg-gray-300 -translate-x-[32.5rem] -translate-y-12 flex rounded-lg flex-col text-center">
 				<h1 className="mt-4 mb-3 font-bold">Add new tables</h1>
 				<input
@@ -67,8 +79,8 @@ const LayoutComedy = (props) => {
 				<button className="w-2/3 mx-auto bg-green-200 rounded-lg h-14">
 					Add Table
 				</button>
-			</div>
-			<div className="w-[20.92cm] h-[29.7cm] absolute">
+			</div> */}
+			<div className="w-[19.95cm] h-[29cm] absolute">
 				<p className="border-t-2 border-dashed border-red-600 mt-2"></p>
 				<div className="flex flex-row-reverse w-full mx-auto">
 					{firstRow?.map((table) => (
@@ -121,7 +133,7 @@ const LayoutComedy = (props) => {
 					))}
 				</div>
 				<p className="border-t-2 border-dashed border-red-600"></p>
-				<div className="flex flex-row-reverse flex-wrap mx-auto">
+				<div className="flex flex-row-reverse mx-auto">
 					{sixthRow?.map((table) => (
 						<Tables
 							tableData={table}
@@ -137,6 +149,7 @@ const LayoutComedy = (props) => {
 					info={modalInfo}
 					closeModal={closeModal}
 					save={handleSaveChanges}
+					deleteTable={handleDeleteTable}
 				/>
 			) : (
 				<></>

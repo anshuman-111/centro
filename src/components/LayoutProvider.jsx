@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { forwardRef, useContext, useEffect, useState } from "react";
 import LayoutFull from "./Layouts/LayoutFull";
 import LayoutComedy from "./Layouts/LayoutComedy";
 import LayoutDance from "./Layouts/LayoutDance";
 import layoutContext from "./utils/layoutContext.js";
 
-const LayoutProvider = (props) => {
+const LayoutProvider = forwardRef((props, ref) => {
 	const [render, setRender] = useState("");
 	const [flatData, setFlat] = useState([]);
 
@@ -14,7 +14,7 @@ const LayoutProvider = (props) => {
 
 	const savedLayout = useContext(layoutContext);
 	useEffect(() => {
-		const dataFlattner = (data) => {
+		const dataFlattener = (data) => {
 			const tablesList = [];
 			data?.forEach((table) => {
 				const tableObj = {
@@ -23,6 +23,7 @@ const LayoutProvider = (props) => {
 					bookingName: "",
 					people: 0,
 					type: "",
+					eatCount: 0,
 				};
 				const types = [];
 				table?.data?.forEach((person) => {
@@ -38,6 +39,10 @@ const LayoutProvider = (props) => {
 							tableObj.diet = person.diet;
 						}
 					}
+
+					if (person.type === "ds") {
+						tableObj.eatCount += 1;
+					}
 					tableObj.bookingName = person.name;
 				});
 				const typeSet = new Set(types);
@@ -50,25 +55,28 @@ const LayoutProvider = (props) => {
 			});
 			setFlat(tablesList);
 		};
-		dataFlattner(props?.booking?.procData);
+
+		dataFlattener(props?.booking?.procData);
 	}, [props]);
 
-	console.log("flattened data", flatData);
+	savedLayout.tableData = flatData;
+	savedLayout.showName = props?.booking?.event;
+
 	return (
-		<>
-			<div className="border-2 w-[21cm] h-[29.7cm] border-black mx-auto">
+		<div ref={ref} className="flex flex-col justify-center">
+			<div className="border-2 w-[20cm] h-[29cm] my-5 border-black mx-auto">
 				<div className="w-[21cm] flex flex-col">
-					<div className="flex flex-row w-[20.91cm] align-bottom">
-						<div className="w-1/12 h-10 text-center text-sm bg-red-300">
+					<div className="flex flex-row w-[19.87cm] align-bottom">
+						<div className="w-1/12 h-10 text-center text-sm bg-gray-100 text-black">
 							Bathroom
 						</div>
 						<div className="bg-white w-10/12 h-fit mx-auto text-black border-b-2 border-r-2 border-l-2 border-black text-center">
-							<p className="text-xl">STAGE</p>
-							<p className="text-lg">{props?.booking?.event}</p>
-							<p className="text-md ml-6 capitalize text-start mx-auto">
+							<p className="text-md">STAGE</p>
+							<p className="text-lg font-bold">{props?.booking?.event}</p>
+							<p className="text-md ml-[10rem] capitalize text-start mx-auto">
 								Meal 1: {props?.meals?.meal1}
 							</p>
-							<p className="text-md ml-6 capitalize text-start mx-auto">
+							<p className="text-md ml-[10rem] capitalize text-start mx-auto">
 								Meal 2: {props?.meals?.meal2}
 							</p>
 
@@ -81,14 +89,24 @@ const LayoutProvider = (props) => {
 								<span className="font-bold">
 									{props?.booking?.showMetrics?.ds} &nbsp;|&nbsp;
 								</span>
-								{"  "}
 								Show Only: &nbsp;
 								<span className="font-bold">
 									{props?.booking?.showMetrics?.s}
 								</span>
 							</span>
+							<div className="flex flex-col absolute h-24 w-20 -translate-x-0 -translate-y-[6.35rem]">
+								<div className="bg-amber-100 w-full h-6 border-black border-2 text-center leading-snug text-sm">
+									Mixed
+								</div>
+								<div className="bg-red-300 w-full h-6 border-black border-2 text-sm">
+									Dietries
+								</div>
+								<div className="bg-blue-200 w-full h-6 border-black border-2 text-sm">
+									Show Only
+								</div>
+							</div>
 						</div>
-						<div className="w-1/12 text-sm h-10 text-center overflow-clip bg-red-300">
+						<div className="w-1/12 text-sm h-10 text-center overflow-clip bg-gray-100 text-black">
 							Kitchen
 						</div>
 					</div>
@@ -116,12 +134,12 @@ const LayoutProvider = (props) => {
 				<div className="mt-4 w-8 h-20 -translate-x-[0] translate-y-[50rem] bg-gray-500">
 					Bar
 				</div>
-				<div className="mt-4 w-14 h-14 bg-gray-500 translate-x-[45rem] translate-y-[45rem]">
+				<div className="mt-4 w-14 h-14 bg-gray-500 translate-x-[43rem] translate-y-[45rem]">
 					Mixing Desk
 				</div>
 			</div>
-		</>
+		</div>
 	);
-};
+});
 
 export default LayoutProvider;

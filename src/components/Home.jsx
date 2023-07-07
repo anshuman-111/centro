@@ -1,12 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import Papa from "papaparse";
 import dataProc from "./dataProc";
 import LayoutProvider from "./LayoutProvider";
 import layoutContext from "./utils/layoutContext.js";
+import ReactToPrint from "react-to-print";
 
 const Home = () => {
+	const layoutRef = useRef();
 	const savedLayout = useContext(layoutContext);
-	savedLayout.layoutType = "test";
+	savedLayout.layoutType = "";
 	const items = [
 		{
 			id: 1,
@@ -25,52 +27,27 @@ const Home = () => {
 		},
 	];
 
-	const food = [
-		{
-			id: 1,
-			name: "Pork",
-			value: "pork",
-		},
-		{
-			id: 2,
-			name: "Chicken",
-			value: "chicken",
-		},
-		{
-			id: 3,
-			name: "Fish",
-			value: "fish",
-		},
-		{
-			id: 4,
-			name: "Veal",
-			value: "veal",
-		},
-		{
-			id: 5,
-			name: "Lamb",
-			value: "lamb",
-		},
-		{
-			id: 6,
-			name: "Beef",
-			value: "beef",
-		},
-	];
 	const [data, setData] = useState([]);
 	const handleUpload = (e) => {
-		Papa.parse(e.target.files[0], {
-			header: true,
-			complete: (results) => {
-				setData(dataProc(results.data));
-			},
-		});
+		if (e.target.files.length > 0) {
+			Papa.parse(e.target.files[0], {
+				header: true,
+				complete: (results) => {
+					setData(dataProc(results.data));
+				},
+			});
+		}
 	};
 
-	const handleMealSave = () => {};
+	const handleLayoutSave = () => {};
 
 	const [layout, setLayout] = useState(items[0].value);
 	const [foodOps, setFood] = useState({ meal1: "", meal2: "" });
+	savedLayout.layoutType = layout;
+	savedLayout.meals = [foodOps.meal1, foodOps.meal2];
+	const switchMode = () => {
+		savedLayout.printMode = true;
+	};
 	return (
 		<>
 			<div className="text-center text-2xl p-3 text-white bg-stone-500">
@@ -115,12 +92,28 @@ const Home = () => {
 					className="ml-2 p-5"
 					onChange={(e) => setFood({ ...foodOps, meal2: e.target.value })}
 				/>
-				<button className="bg-green-200 ml-3 p-5" onClick={handleMealSave}>
-					Save Meals
+				<button className="bg-green-200 ml-3 p-5" onClick={handleLayoutSave}>
+					Save Layout
 				</button>
+				<ReactToPrint
+					trigger={() => {
+						return (
+							<button className="bg-green-200 ml-3 p-5" onClick={switchMode}>
+								Download Layout
+							</button>
+						);
+					}}
+					content={() => layoutRef.current}
+					documentTitle={data.event}
+				/>
 			</div>
 			<layoutContext.Provider value={savedLayout}>
-				<LayoutProvider meals={foodOps} layoutType={layout} booking={data} />
+				<LayoutProvider
+					meals={foodOps}
+					layoutType={layout}
+					booking={data}
+					ref={layoutRef}
+				/>
 			</layoutContext.Provider>
 		</>
 	);

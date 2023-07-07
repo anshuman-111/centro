@@ -1,4 +1,4 @@
-import { createContext } from "react";
+
 
 
 import Home from "./components/Home";
@@ -12,6 +12,7 @@ function App() {
 		tableData: [],
 		meals: [],
 		changed: false,
+		printMode: false
 	};
 
 	return (

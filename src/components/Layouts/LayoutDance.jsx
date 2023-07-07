@@ -7,9 +7,9 @@ const LayoutDance = (props) => {
 	const savedLayout = useContext(layoutContext);
 	savedLayout.tableData = props?.data;
 	const [dataState, setDataState] = useState(savedLayout.tableData);
-	const firstRight = dataState?.slice(0, 3);
-	const firstRow = dataState?.slice(3, 6);
-	const firstLeft = dataState?.slice(6, 9);
+	const firstRight = dataState?.slice(0, 2);
+	const firstRow = dataState?.slice(2, 7);
+	const firstLeft = dataState?.slice(7, 9);
 	const secondRow = dataState?.slice(9, 14);
 	const thirdRow = dataState?.slice(14, 19);
 	const fourthRow = dataState?.slice(19, 22);
@@ -31,23 +31,35 @@ const LayoutDance = (props) => {
 	const handleSaveChanges = (modalData) => {
 		const copy = [...dataState];
 		copy.forEach((element) => {
-			if (
-				element.tableNo === modalData.tableNo &&
-				element.diet.toString() !== "no"
-			) {
-				element.diet = modalData.diet;
+			if (element.tableNo === modalData.tableNo) {
+				if (modalData.diet === "") {
+					element.diet = "";
+				} else {
+					element.diet = modalData.diet;
+				}
 			}
 		});
 		savedLayout.tableData = copy;
 		setDataState(copy);
+		console.log(dataState);
+		setShowModal(false);
 	};
 
 	const handleDeleteTable = (modalData) => {
-		savedLayout?.tableData.forEach((element) => {});
+		if (window.confirm(`Table Number ${modalData.tableNo} will be deleted`)) {
+			const copy = [...dataState];
+			console.log(modalData.tableNo);
+			const filtered = copy.filter(
+				(element) => element.tableNo !== modalData.tableNo,
+			);
+			savedLayout.tableData = filtered;
+			setDataState(filtered);
+			setShowModal(false);
+		}
 	};
 	return (
 		<>
-			{/* ADDING TABLES MODAL */}
+			{/* ADDING TABLES MODAL
 			<div className="h-96 w-1/4 absolute bg-gray-300 -translate-x-[32.5rem] -translate-y-12 flex rounded-lg flex-col text-center">
 				<h1 className="mt-4 mb-3 font-bold">Add new tables</h1>
 				<input
@@ -67,9 +79,10 @@ const LayoutDance = (props) => {
 				<button className="w-2/3 mx-auto bg-green-200 rounded-lg h-14">
 					Add Table
 				</button>
-			</div>
-			<div className="w-[20.92cm] h-[29.7cm] absolute">
-				<div className="grid grid-cols-3 grid-flow-col-dense mx-auto">
+			</div> */}
+			<div className="w-96 h-80 translate-x-[11.9rem] bg-white border-b-2 border-x-2 border-black mx-auto absolute -z-10"></div>
+			<div className="w-[19.95cm] h-[29cm] absolute">
+				<div className="grid grid-cols-2 gap-[26rem] grid-flow-col-dense mx-auto">
 					<div className="flex flex-col-reverse w-full ">
 						{firstLeft?.map((table) => (
 							<Tables
@@ -79,7 +92,7 @@ const LayoutDance = (props) => {
 							/>
 						))}
 					</div>
-					<div className="w-96 h-96 -translate-x-[4rem] bg-gray-500 mx-auto"></div>
+
 					<div className="flex flex-col w-full">
 						{firstRight?.map((table) => (
 							<Tables
@@ -91,7 +104,7 @@ const LayoutDance = (props) => {
 					</div>
 				</div>
 
-				<div className="flex flex-row-reverse mx-auto ">
+				<div className="flex flex-row-reverse w-[38rem] mx-auto ">
 					{firstRow?.map((table) => (
 						<Tables
 							tableData={table}
@@ -137,6 +150,7 @@ const LayoutDance = (props) => {
 					info={modalInfo}
 					closeModal={closeModal}
 					save={handleSaveChanges}
+					deleteTable={handleDeleteTable}
 				/>
 			) : (
 				<></>

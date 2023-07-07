@@ -10,18 +10,13 @@ const Tables = (props) => {
 	const [dietries, setDiets] = useState([]);
 	const [tableDataState, setTableData] = useState(props?.tableData);
 
-	console.log(savedLayout.tableData);
 	const handleTableClick = () => {
 		props.openModal({
 			tableNo: tableDataState?.tableNo,
 			people: tableDataState?.people,
 			diet: dietries,
+			type: tableDataState?.type,
 		});
-		if (selected) {
-			setSelected(false);
-		} else {
-			setSelected(true);
-		}
 	};
 
 	useEffect(() => {
@@ -38,19 +33,25 @@ const Tables = (props) => {
 
 	useEffect(() => {
 		if (savedLayout.layoutType === "dance") {
-			setSpacing(" ");
+			setSpacing("mb-3 pt-3");
 		} else {
-			setSpacing("mb-2 pt-2");
+			setSpacing("mb-5 pt-5");
 		}
-		if (
-			tableDataState !== null &&
+
+		const shortDiet = shortner(tableDataState?.diet);
+		if (tableDataState?.type === "mixed") {
+			setTableBg("bg-amber-100");
+			setDiets(shortDiet);
+		} else if (
 			tableDataState?.diet !== "" &&
 			tableDataState?.diet !== "no" &&
-			tableDataState?.diet.length > 2
+			tableDataState?.type === "ds"
 		) {
 			setTableBg("bg-red-200");
-			const shortDiet = shortner(tableDataState?.diet);
 			setDiets(shortDiet);
+		} else if (tableDataState?.type === "s") {
+			setTableBg("bg-gray-300");
+			setDiets("Show only");
 		} else {
 			setTableBg("bg-white");
 			setDiets("");
@@ -78,14 +79,21 @@ const Tables = (props) => {
 	return (
 		<>
 			<div className={`flex flex-col w-full ${tableSpacing}`}>
-				<p className="text-center font-bold">{tableDataState?.people}</p>
+				<p className="text-center text-sm font-bold">
+					{tableDataState?.people}
+					{tableDataState?.type === "s" ? (
+						""
+					) : (
+						<span className="text-xs">{`  (${tableDataState?.eatCount} Eating)`}</span>
+					)}
+				</p>
 				<div
-					className={` ${tableSize} ${tableBg} inline-block border-black border-2 text-lg pt-2 font-bold text-center m-auto hover:bg-green-100 ${
-						selected ? "bg-green-300" : "bg-blue-300"
-					}`}
+					className={` ${tableSize} ${tableBg} inline-block border-black border-2 text-lg pt-2 font-bold text-center m-auto hover:bg-green-100 `}
 					onClick={handleTableClick}
 				>
-					<p>T{tableDataState?.tableNo}</p>
+					<p className="text-[1rem] tracking-tighter leading-snug">
+						T{tableDataState?.tableNo}
+					</p>
 					<p className="text-[12px] tracking-tighter leading-tight">
 						{dietries}
 					</p>
