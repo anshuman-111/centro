@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/99e39243-ce10-4884-8b1e-ffa09447a6c8/deploy-status)](https://app.netlify.com/sites/sorrento-room/deploys)
+[![Deployment CI](https://api.netlify.com/api/v1/badges/99e39243-ce10-4884-8b1e-ffa09447a6c8/deploy-status)](https://app.netlify.com/sites/sorrento-room/deploys)
 
 # Getting Started with Create React App
 
