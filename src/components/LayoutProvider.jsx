@@ -84,7 +84,7 @@ const LayoutProvider = forwardRef(({ booking, meals, layoutType }, ref) => {
 						</ol>
 					</div>
 				)}
-				{(data?.length < 1) | (render == "empty") ? (
+				{(data?.length < 1) | (render === "empty") ? (
 					<></>
 				) : (
 					<>

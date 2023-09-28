@@ -4,12 +4,8 @@ import dataProc from "./dataProc";
 import LayoutProvider from "./LayoutProvider";
 import layoutContext from "./utils/layoutContext.js";
 import ReactToPrint from "react-to-print";
-
+import { dummy } from "./utils/dummyData";
 const Home = () => {
-	const layoutRef = useRef();
-	var savedLayout = useContext(layoutContext);
-
-	savedLayout.layoutType = "";
 	const items = [
 		{
 			id: 1,
@@ -32,9 +28,12 @@ const Home = () => {
 			value: "dance",
 		},
 	];
-
+	const layoutRef = useRef();
+	var savedLayout = useContext(layoutContext);
 	const [layout, setLayout] = useState(items[0].value);
 	const [data, setData] = useState([]);
+	savedLayout.layoutType = "";
+
 	const handleUpload = (e) => {
 		if (e.target.files.length > 0) {
 			Papa.parse(e.target.files[0], {
@@ -59,6 +58,12 @@ const Home = () => {
 			<div className="text-center text-2xl p-3 text-white bg-stone-500">
 				Centro CBD Sorrento Room Layout Generator
 			</div>
+			<button
+				onClick={() => (setData(dummy), setLayout("dance"))}
+				className="absolute translate-x-[65rem] translate-y-[6rem] text-white font-bold p-5 bg-red-900"
+			>
+				DUMMY DATA FOR TEST
+			</button>
 			<div className="flex flex-row items-center justify-center bg-slate-400">
 				<p className="mx-6">Upload your Bookings CSV file : </p>
 				<input
