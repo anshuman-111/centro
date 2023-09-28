@@ -3,7 +3,7 @@ import layoutContext from "../utils/layoutContext.js";
 
 const Tables = (props) => {
 	const savedLayout = useContext(layoutContext);
-	const [selected, setSelected] = useState(false);
+	
 	const [tableSize, setTableSize] = useState("w-fit h-fit rounded-full");
 	const [tableBg, setTableBg] = useState("bg-white");
 	const [tableSpacing, setSpacing] = useState("");
@@ -21,11 +21,11 @@ const Tables = (props) => {
 
 	useEffect(() => {
 		if (tableDataState?.people >= 10) {
-			setTableSize("w-28 h-28 rounded-full");
+			setTableSize("w-[5.3em] h-[5.3em] rounded-full");
 		} else if (tableDataState?.people <= 9 && tableDataState?.people > 6) {
-			setTableSize("w-24 h-24 rounded-full");
+			setTableSize("w-[4.7em] h-[4.7em] rounded-full");
 		} else if (tableDataState?.people <= 6 && tableDataState?.people > 4) {
-			setTableSize("w-24 h-24 rounded-full");
+			setTableSize("w-[4.4em] h-[4.4em] rounded-full");
 		} else {
 			setTableSize("w-20 h-20 rounded-full");
 		}
@@ -62,8 +62,8 @@ const Tables = (props) => {
 		var shortDiet = diet.replace(";", " ").replace(":", " ").replace("-", " ");
 
 		var shortDiet = shortDiet
-			.replace("vegetarian", "veg")
-			.replace("gluten free", "gf")
+			?.replace("vegetarian", "veg")
+			?.replace("gluten free", "gf")
 			.replace("lactose free", "df")
 			.replace("gluten intolerant", "gf")
 			.replace("lactose intolerant", "df")
@@ -88,7 +88,7 @@ const Tables = (props) => {
 					)}
 				</p>
 				<div
-					className={` ${tableSize} ${tableBg} inline-block border-black border-2 text-lg pt-2 font-bold text-center m-auto hover:bg-green-100 `}
+					className={` ${tableSize} ${tableBg} inline-block border-black border-2 text-lg pt-2 font-bold text-center m-auto hover:bg-green-100 cursor-pointer`}
 					onClick={handleTableClick}
 				>
 					<p className="text-[1rem] tracking-tighter leading-snug">

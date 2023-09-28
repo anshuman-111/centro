@@ -11,20 +11,20 @@ const Modal = ({ info, closeModal, save, deleteTable }) => {
 		setModalData(info);
 	}, [info]);
 	return (
-		<div className="h-[26rem] w-96 absolute bg-gray-300 translate-x-[55rem] translate-y-10 flex flex-col rounded-lg">
+		<div className="h-[40rem] w-96 absolute bg-gray-300 translate-x-[10rem] -translate-y-24 flex flex-col rounded-lg">
 			<>
 				<p
-					className="font-bold text-lg text-end mr-4 cursor-pointer"
+					className="font-bold text-3xl text-end mr-4 cursor-pointer"
 					onClick={closeModal}
 				>
 					x
 				</p>
 
-				<h1 className="font-bold text-center underline">
-					Details - Table No. {info?.tableNo}
+				<h1 className="font-bold text-xl text-center underline">
+					Table No. {info?.tableNo}
 				</h1>
-				<p className="font-bold text-red-600 ml-16">
-					Number of People on Table {info?.tableNo}
+				<p className="text-lg text-black ml-16">
+					No. of People - {modalData?.people}
 				</p>
 				<p className="font-bold text-red-600 ml-16">
 					{info?.type === "ds" ? (
@@ -69,13 +69,13 @@ const Modal = ({ info, closeModal, save, deleteTable }) => {
 				)}
 
 				<button
-					className="w-2/3 mx-auto bg-green-200 rounded-lg h-14 mb-2"
+					className="w-2/3 mx-auto bg-green-200 rounded-lg h-[5rem] mb-2"
 					onClick={() => save(modalData)}
 				>
 					Save Changes
 				</button>
 				<button
-					className="w-2/3 mx-auto bg-red-200 rounded-lg h-14 mb-8"
+					className="w-2/3 mx-auto bg-red-200 rounded-lg h-[5rem] mb-8"
 					onClick={() => deleteTable(modalData)}
 				>
 					Delete Table

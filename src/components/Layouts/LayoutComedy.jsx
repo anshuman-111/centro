@@ -16,11 +16,10 @@ const LayoutComedy = (props) => {
 	const [showModal, setShowModal] = useState(false);
 	const [modalInfo, setModalInfo] = useState(null);
 
-	useEffect(() => {});
+
 	const openModal = (info) => {
 		setModalInfo(info);
 		setShowModal(true);
-		console.log("modal Click");
 	};
 
 	const closeModal = () => {
@@ -41,14 +40,12 @@ const LayoutComedy = (props) => {
 		});
 		savedLayout.tableData = copy;
 		setDataState(copy);
-		console.log(dataState);
 		setShowModal(false);
 	};
 
 	const handleDeleteTable = (modalData) => {
 		if (window.confirm(`Table Number ${modalData.tableNo} will be deleted`)) {
 			const copy = [...dataState];
-			console.log(modalData.tableNo);
 			const filtered = copy.filter(
 				(element) => element.tableNo !== modalData.tableNo,
 			);
@@ -59,27 +56,6 @@ const LayoutComedy = (props) => {
 	};
 	return (
 		<>
-			{/* ADDING TABLES MODAL
-			<div className="h-96 w-1/4 absolute bg-gray-300 -translate-x-[32.5rem] -translate-y-12 flex rounded-lg flex-col text-center">
-				<h1 className="mt-4 mb-3 font-bold">Add new tables</h1>
-				<input
-					type="text"
-					className="w-1/3 mx-auto bg-white text-center rounded-md h-10 mb-5 mt-2"
-					placeholder="Table Number"
-				/>
-				<input
-					type="text"
-					className="w-1/3 mx-auto bg-white text-center rounded-md h-10 mb-5 mt-2"
-					placeholder="Number of People"
-				/>
-				<input
-					className="w-2/3 mx-auto bg-white rounded-md p-4 h-20 mb-5"
-					placeholder="Dietries for Table"
-				/>
-				<button className="w-2/3 mx-auto bg-green-200 rounded-lg h-14">
-					Add Table
-				</button>
-			</div> */}
 			<div className="w-[19.95cm] h-[29cm] absolute">
 				<p className="border-t-2 border-dashed border-red-600 mt-2"></p>
 				<div className="flex flex-row-reverse w-full mx-auto">

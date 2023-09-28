@@ -7,26 +7,33 @@ import ReactToPrint from "react-to-print";
 
 const Home = () => {
 	const layoutRef = useRef();
-	const savedLayout = useContext(layoutContext);
+	var savedLayout = useContext(layoutContext);
+
 	savedLayout.layoutType = "";
 	const items = [
 		{
 			id: 1,
+			name: "Select Layout Type",
+			value: "empty",
+		},
+		{
+			id: 2,
 			name: "Full Sorrento Room",
 			value: "full",
 		},
 		{
-			id: 2,
+			id: 3,
 			name: "Comedy Layout",
 			value: "comedy",
 		},
 		{
-			id: 3,
+			id: 4,
 			name: "Dance Layout",
 			value: "dance",
 		},
 	];
 
+	const [layout, setLayout] = useState(items[0].value);
 	const [data, setData] = useState([]);
 	const handleUpload = (e) => {
 		if (e.target.files.length > 0) {
@@ -34,20 +41,19 @@ const Home = () => {
 				header: true,
 				complete: (results) => {
 					setData(dataProc(results.data));
+					setLayout(items[0].value);
 				},
 			});
 		}
 	};
 
-	const handleLayoutSave = () => {};
-
-	const [layout, setLayout] = useState(items[0].value);
 	const [foodOps, setFood] = useState({ meal1: "", meal2: "" });
 	savedLayout.layoutType = layout;
 	savedLayout.meals = [foodOps.meal1, foodOps.meal2];
 	const switchMode = () => {
 		savedLayout.printMode = true;
 	};
+
 	return (
 		<>
 			<div className="text-center text-2xl p-3 text-white bg-stone-500">
@@ -92,9 +98,7 @@ const Home = () => {
 					className="ml-2 p-5"
 					onChange={(e) => setFood({ ...foodOps, meal2: e.target.value })}
 				/>
-				<button className="bg-green-200 ml-3 p-5" onClick={handleLayoutSave}>
-					Save Layout
-				</button>
+
 				<ReactToPrint
 					trigger={() => {
 						return (

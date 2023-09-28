@@ -2,6 +2,8 @@
 
 // Read CSV File
 
+import { dataFlattener } from './utils/dataFlattener'
+
 
 const dataProc = (rawData) => {
     const dataForge = require('data-forge')
@@ -49,8 +51,8 @@ const dataProc = (rawData) => {
 
     const showMetrics = {
         'total' : data.count(),
-        'ds' : data.where(row => row.type == 'ds').count(),
-        's': data.where(row => row.type == 's').count()
+        'ds' : data.where(row => row.type === 'ds').count(),
+        's': data.where(row => row.type === 's').count()
     }
     data = data.transformSeries({
         diet: value => {
@@ -70,8 +72,8 @@ const dataProc = (rawData) => {
         }
     })
     groups = groups.orderBy(row=>row.tableNo)
-
-  return { event: eventName, procData: groups.toArray(), showMetrics: showMetrics}
+    const restructuredData = dataFlattener(groups.toArray())
+  return { event: eventName, procData: restructuredData, showMetrics: showMetrics}
 }
 // export default data
 export default dataProc

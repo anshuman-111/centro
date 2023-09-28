@@ -11,7 +11,7 @@ function App() {
 		tablePos: [],
 		tableData: [],
 		meals: [],
-		changed: false,
+		savedVersion: false,
 		printMode: false
 	};
 
