@@ -3,7 +3,7 @@ export const dummy = {
     "procData": [
         {
             "tableNo": 1,
-            "diet": "one person doesn’t eat fish.",
+            "diet": "No",
             "bookingName": "Karen Barnes",
             "people": 11,
             "type": "ds",
@@ -11,7 +11,7 @@ export const dummy = {
         },
         {
             "tableNo": 2,
-            "diet": "moved from show on the 7th they booked the wrong date - es",
+            "diet": "",
             "bookingName": "Jacqueline Estraube",
             "people": 11,
             "type": "ds",
@@ -59,7 +59,7 @@ export const dummy = {
         },
         {
             "tableNo": 8,
-            "diet": "2 of the meals not to be fish.\nthankyou.",
+            "diet": "No Fish",
             "bookingName": "Donna Simcock",
             "people": 11,
             "type": "ds",
@@ -99,7 +99,7 @@ export const dummy = {
         },
         {
             "tableNo": 13,
-            "diet": "1 guest requires soft food to eat\ncan't chew food very well.",
+            "diet": "1 guest requires soft food",
             "bookingName": "SUSANNE CHARLESWORTH",
             "people": 7,
             "type": "ds",
@@ -171,7 +171,7 @@ export const dummy = {
         },
         {
             "tableNo": 22,
-            "diet": "6 pork allergy (ham and bacon are ok)\r\nx1 no seafood",
+            "diet": "6 pork allergy",
             "bookingName": "Allison Hurley",
             "people": 12,
             "type": "mixed",
