@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import layoutContext from "../utils/layoutContext.js";
-
+import { shortner } from "../utils/shortner.js";
 const Tables = (props) => {
 	const savedLayout = useContext(layoutContext);
-	
+
 	const [tableSize, setTableSize] = useState("w-fit h-fit rounded-full");
 	const [tableBg, setTableBg] = useState("bg-white");
 	const [tableSpacing, setSpacing] = useState("");
@@ -50,31 +50,13 @@ const Tables = (props) => {
 			setTableBg("bg-red-200");
 			setDiets(shortDiet);
 		} else if (tableDataState?.type === "s") {
-			setTableBg("bg-gray-300");
+			setTableBg("bg-blue-200");
 			setDiets("Show only");
 		} else {
 			setTableBg("bg-white");
 			setDiets("");
 		}
 	}, [props]);
-
-	const shortner = (diet) => {
-		var shortDiet = diet.replace(";", " ").replace(":", " ").replace("-", " ");
-
-		var shortDiet = shortDiet
-			?.replace("vegetarian", "veg")
-			?.replace("gluten free", "gf")
-			.replace("lactose free", "df")
-			.replace("gluten intolerant", "gf")
-			.replace("lactose intolerant", "df")
-			.replace("dairy free", "df")
-			.replace("one", "1x")
-			.replace("two", "2x")
-			.replace("three", "3x")
-			.replace("four", "4x")
-			.trim();
-		return shortDiet;
-	};
 
 	return (
 		<>
