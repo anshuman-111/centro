@@ -15,7 +15,7 @@ const LayoutProvider = forwardRef(({ booking, meals, layoutType }, ref) => {
 	}, [layoutType, booking]);
 
 	return (
-		<div ref={ref} className="flex flex-col justify-center mx-auto w-1/2">
+		<div ref={ref} className="flex flex-col justify-center mx-auto">
 			<div className="border-2 w-[20cm] h-[29cm] my-5 border-black ml-20">
 				<div className="w-[21cm] flex flex-col">
 					<div className="flex flex-row w-[19.87cm] align-bottom">
