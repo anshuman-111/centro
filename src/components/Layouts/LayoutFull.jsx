@@ -8,7 +8,7 @@ const LayoutFull = (props) => {
 	const [dataState, setDataState] = useState(props?.data);
 	const [showModal, setShowModal] = useState(false);
 	const [modalInfo, setModalInfo] = useState(null);
-	//console.log("PROP DATA", dataState);
+	
 	const openModal = (info) => {
 		setModalInfo(info);
 		setShowModal(true);
@@ -50,9 +50,9 @@ const LayoutFull = (props) => {
 
 	return (
 		<>
-			<div className="w-[19.95cm] h-[29cm] absolute">
-				<p className="border-t-2 border-dashed border-red-600 mt-2"></p>
-				<div className="flex flex-row-reverse w-full">
+			<div className="w-[19.95cm] h-[29.1cm] absolute">
+				<p className="border-t-2 border-dashed border-red-600"></p>
+				<div className="flex flex-row-reverse w-full -my-2">
 					{dataState?.slice(0, 5)?.map((table) => (
 						<Tables
 							tableData={table}
@@ -62,7 +62,7 @@ const LayoutFull = (props) => {
 					))}
 				</div>
 				<p className="border-t-2 border-dashed border-red-600"></p>
-				<div className="flex flex-row-reverse mx-auto ">
+				<div className="flex flex-row-reverse mx-auto -my-2">
 					{dataState?.slice(5, 12)?.map((table) => (
 						<Tables
 							tableData={table}
@@ -94,7 +94,7 @@ const LayoutFull = (props) => {
 				<p className="border-t-2 border-dashed border-red-600 h-2"></p>
 
 				<div className="flex flex-row-reverse">
-					{dataState?.slice(21, 28)?.map((table) => (
+					{dataState?.slice(21, 27)?.map((table) => (
 						<Tables
 							tableData={table}
 							key={table.tableNo}
@@ -102,9 +102,18 @@ const LayoutFull = (props) => {
 						/>
 					))}
 				</div>
-				<p className="border-t-2 border-dashed border-red-600"></p>
+				<p className="border-t-2 border-dashed border-red-600 h-2"></p>
 				<div className="flex flex-row-reverse mx-auto">
-					{dataState?.slice(28)?.map((table) => (
+					{dataState?.slice(27, 31)?.map((table) => (
+						<Tables
+							tableData={table}
+							key={table.tableNo}
+							openModal={openModal}
+						/>
+					))}
+				</div>
+				<div className="flex flex-row-reverse mx-auto -mt-5">
+					{dataState?.slice(31)?.map((table) => (
 						<Tables
 							tableData={table}
 							key={table.tableNo}

@@ -13,9 +13,10 @@ const LayoutComedy = (props) => {
 	const fourthRow = dataState?.slice(17, 21);
 	const fifthRow = dataState?.slice(21, 25);
 	const sixthRow = dataState?.slice(25, 28);
+	const seventhRow = dataState?.slice(28, 31);
+	const eighthRow = dataState?.slice(31);
 	const [showModal, setShowModal] = useState(false);
 	const [modalInfo, setModalInfo] = useState(null);
-
 
 	const openModal = (info) => {
 		setModalInfo(info);
@@ -57,7 +58,7 @@ const LayoutComedy = (props) => {
 	return (
 		<>
 			<div className="w-[19.95cm] h-[29cm] absolute">
-				<p className="border-t-2 border-dashed border-red-600 mt-2"></p>
+				<p className="border-t-2 border-dashed border-red-600"></p>
 				<div className="flex flex-row-reverse w-full mx-auto">
 					{firstRow?.map((table) => (
 						<Tables
@@ -67,7 +68,7 @@ const LayoutComedy = (props) => {
 						/>
 					))}
 				</div>
-				<p className="border-t-2 border-dashed border-red-600"></p>
+				<p className="border-t-2 border-dashed border-red-600 -mt-4"></p>
 				<div className="flex flex-row-reverse mx-auto ">
 					{secondRow?.map((table) => (
 						<Tables
@@ -77,7 +78,7 @@ const LayoutComedy = (props) => {
 						/>
 					))}
 				</div>
-				<p className="border-t-2 border-dashed border-red-600"></p>
+				<p className="border-t-2 border-dashed border-red-600 -mt-4"></p>
 				<div className="flex flex-row-reverse">
 					{thirdRow?.map((table) => (
 						<Tables
@@ -87,7 +88,7 @@ const LayoutComedy = (props) => {
 						/>
 					))}
 				</div>
-				<p className="border-t-2 border-dashed border-red-600"></p>
+				<p className="border-t-2 border-dashed border-red-600 -mt-4"></p>
 				<div className="flex flex-row-reverse">
 					{fourthRow?.map((table) => (
 						<Tables
@@ -111,6 +112,24 @@ const LayoutComedy = (props) => {
 				<p className="border-t-2 border-dashed border-red-600"></p>
 				<div className="flex flex-row-reverse mx-auto">
 					{sixthRow?.map((table) => (
+						<Tables
+							tableData={table}
+							key={table.tableNo}
+							openModal={openModal}
+						/>
+					))}
+				</div>
+				<div className="flex flex-row-reverse mx-auto">
+					{seventhRow?.map((table) => (
+						<Tables
+							tableData={table}
+							key={table.tableNo}
+							openModal={openModal}
+						/>
+					))}
+				</div>
+				<div className="flex flex-row-reverse mx-auto">
+					{eighthRow?.map((table) => (
 						<Tables
 							tableData={table}
 							key={table.tableNo}

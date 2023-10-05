@@ -61,6 +61,7 @@ const LayoutProvider = forwardRef(({ booking, meals, layoutType }, ref) => {
 						</div>
 					</div>
 				</div>
+
 				{data?.length >= 1 ? (
 					render === "full" ? (
 						<LayoutFull data={data} eventName={booking?.event} />
@@ -84,6 +85,7 @@ const LayoutProvider = forwardRef(({ booking, meals, layoutType }, ref) => {
 						</ol>
 					</div>
 				)}
+
 				{(data?.length < 1) | (render === "empty") ? (
 					<></>
 				) : (

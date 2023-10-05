@@ -24,16 +24,16 @@ const Tables = (props) => {
 			setTableSize("w-[5.3em] h-[5.3em] rounded-full");
 		} else if (tableDataState?.people <= 9 && tableDataState?.people > 6) {
 			setTableSize("w-[4.7em] h-[4.7em] rounded-full");
-		} else if (tableDataState?.people <= 6 && tableDataState?.people > 4) {
+		} else if (tableDataState?.people <= 6 && tableDataState?.people >= 4) {
 			setTableSize("w-[4.4em] h-[4.4em] rounded-full");
 		} else {
-			setTableSize("w-20 h-20 rounded-full");
+			setTableSize("w-16 h-16 rounded-full");
 		}
 	}, [props]);
 
 	useEffect(() => {
 		if (savedLayout.layoutType === "dance") {
-			setSpacing("mb-3 pt-3");
+			setSpacing("mb-3 pt-1");
 		} else {
 			setSpacing("mb-5 pt-5");
 		}

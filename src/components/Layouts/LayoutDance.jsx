@@ -13,9 +13,11 @@ const LayoutDance = (props) => {
 	const secondRow = dataState?.slice(9, 14);
 	const thirdRow = dataState?.slice(14, 19);
 	const fourthRow = dataState?.slice(19, 22);
+	const fifthRow = dataState?.slice(22, 27);
+	const sixthRow = dataState?.slice(27, 31);
+	const seventhRow = dataState?.slice(31, 34);
 	const [showModal, setShowModal] = useState(false);
 	const [modalInfo, setModalInfo] = useState(null);
-
 
 	const openModal = (info) => {
 		setModalInfo(info);
@@ -40,14 +42,14 @@ const LayoutDance = (props) => {
 		});
 		savedLayout.tableData = copy;
 		setDataState(copy);
-		
+
 		setShowModal(false);
 	};
 
 	const handleDeleteTable = (modalData) => {
 		if (window.confirm(`Table Number ${modalData.tableNo} will be deleted`)) {
 			const copy = [...dataState];
-			
+
 			const filtered = copy.filter(
 				(element) => element.tableNo !== modalData.tableNo,
 			);
@@ -82,7 +84,7 @@ const LayoutDance = (props) => {
 					</div>
 				</div>
 
-				<div className="flex flex-row-reverse w-[38rem] mx-auto ">
+				<div className="flex flex-row-reverse w-[38rem] mx-auto">
 					{firstRow?.map((table) => (
 						<Tables
 							tableData={table}
@@ -92,7 +94,7 @@ const LayoutDance = (props) => {
 					))}
 				</div>
 
-				<div className="flex flex-row-reverse">
+				<div className="flex flex-row-reverse ">
 					{secondRow?.map((table) => (
 						<Tables
 							tableData={table}
@@ -102,7 +104,7 @@ const LayoutDance = (props) => {
 					))}
 				</div>
 
-				<div className="flex flex-row-reverse">
+				<div className="flex flex-row-reverse -mt-5">
 					{thirdRow?.map((table) => (
 						<Tables
 							tableData={table}
@@ -112,8 +114,35 @@ const LayoutDance = (props) => {
 					))}
 				</div>
 
-				<div className="flex flex-row-reverse mx-auto">
+				<div className="flex flex-row-reverse mx-auto -mt-5">
 					{fourthRow?.map((table) => (
+						<Tables
+							tableData={table}
+							key={table.tableNo}
+							openModal={openModal}
+						/>
+					))}
+				</div>
+				<div className="flex flex-row-reverse mx-auto -mt-5">
+					{fifthRow?.map((table) => (
+						<Tables
+							tableData={table}
+							key={table.tableNo}
+							openModal={openModal}
+						/>
+					))}
+				</div>
+				<div className="flex flex-row-reverse mx-auto -mt-5">
+					{sixthRow?.map((table) => (
+						<Tables
+							tableData={table}
+							key={table.tableNo}
+							openModal={openModal}
+						/>
+					))}
+				</div>
+				<div className="flex flex-row-reverse mx-auto -mt-5">
+					{seventhRow?.map((table) => (
 						<Tables
 							tableData={table}
 							key={table.tableNo}
